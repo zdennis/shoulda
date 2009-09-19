@@ -320,6 +320,11 @@ module Shoulda
     def subject(&block)
       self.subject_block = block
     end
+    
+    def subject_block
+      return @subject_block if @subject_block
+      parent.subject_block
+    end
 
     def full_name
       parent_name = parent.full_name if am_subcontext?
@@ -354,7 +359,7 @@ module Shoulda
         end
       end
     end
-
+    
     def run_all_setup_blocks(binding)
       run_parent_setup_blocks(binding)
       run_current_setup_blocks(binding)
